@@ -2,8 +2,14 @@
 var getUberPrice = require('../lib/getUberPrice');
 var Yelp = require('../lib/getYelpData');
 var IndexModel = require('../models/index');
+var bcrypt = require('bcrypt');
+
+var qs = require('querystring');
 
 module.exports = function (router) {
+
+    // var Journey = new IndexModel();
+
     router.get('/', function (req, res) {
         res.send('ok');
     });
@@ -52,4 +58,68 @@ module.exports = function (router) {
         });
     });
 
+    router.post('/saveData', function (req, res) {
+        
+        console.log(req.body);
+        var data = JSON.stringify(req.body);  
+        IndexModel.create({
+                data : data
+          }, function(err, doc){
+            res.header("Access-Control-Allow-Origin", "*");
+            res.header("Access-Control-Allow-Headers", "X-Requested-With");
+                if(err){
+                console.log("Error in data saving"+err);
+                res.sendStatus(400);
+            }
+            else{
+                console.log("document created sucfessfully"+doc);
+                res.sendStatus(200);
+            }
+        });
+                   
+    });
+
+    router.get('/getAllData', function(req, res){
+      IndexModel.find({}, function (err, docs) {
+        if(!err){
+            var data = [];
+
+            for (var i = docs.length - 1; i >= 0; i--) {
+                var result = docs[i];
+                var journey ={
+                    "id": result._id,
+                    "data": JSON.parse(result.data)
+                };
+                data.push(journey);
+            };
+            
+            res.json(data); 
+        }else{
+            res.sendStatus(400);
+        }
+        
+      });
+    });
+
+    router.get('/getData/:id', function(req, res){
+      IndexModel.find({}, function (err, docs) {
+        if(!err){
+            var data = [];
+
+            for (var i = docs.length - 1; i >= 0; i--) {
+                var result = docs[i];
+                var journey ={
+                    "id": result._id,
+                    "data": JSON.parse(result.data)
+                };
+                data.push(journey);
+            };
+            
+            res.json(data); 
+        }else{
+            res.sendStatus(400);
+        }
+        
+      });
+    });
 };

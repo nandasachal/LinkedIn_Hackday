@@ -1,8 +1,14 @@
 'use strict';
 
+var mongoose = require('mongoose');
+
 
 module.exports = function IndexModel() {
-    return {
-        name: 'index'
-    };
+	var journeySchema = mongoose.Schema({
+		data: String
+	}, {
+		collection : 'journeyData'
+	});
+
+	return mongoose.model('journey', journeySchema);
 };
