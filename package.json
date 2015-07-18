@@ -15,7 +15,9 @@
     "localizr": "^0.1.6",
     "request": "*",
     "yelp": "*",
-    "underscore": "*"
+    "underscore": "*",
+    "cheerio": "*",
+    "async": "*"
   },
   "devDependencies": {
     "grunt": "^0.4.5",
