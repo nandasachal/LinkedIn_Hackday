@@ -52,7 +52,7 @@ function SearchCtrl($http, $scope) {
         // navigator.geolocation.getCurrentPosition(function(geo) {
         //     var lat = "" + geo.coords.latitude;
         //     var log = "" + geo.coords.longitude;
-        //     $http.get(["http://10.16.20.212:8000/api/nearby", lat, log].join("/"))
+        //     $http.get(["http://10.16.23.91:8000/api/nearby", lat, log].join("/"))
         //         .success(function(res) {
         //             var repos = res.businesses;
         //             self.repos = repos.map(function(repo) {
@@ -61,7 +61,7 @@ function SearchCtrl($http, $scope) {
         //             });
         //         });
         // });
-                    $http.get("http://10.16.20.212:8000/api/nearby/37.354611/-121.918866")
+                    $http.get("http://10.16.23.91:8000/api/nearby/37.354611/-121.918866")
                 .success(function(res) {
                     var repos = res.businesses;
                     self.repos = repos.map(function(repo) {
@@ -89,7 +89,7 @@ function SearchCtrl($http, $scope) {
     }
 
     $scope.recommendJourney = function() {
-      $http.get("http://10.16.20.212:8000/api/getjourney/37.354611/-121.918866")
+      $http.get("http://10.16.23.91:8000/api/getjourney/37.354611/-121.918866")
         .success(function(res){
           for (var i in res) {
             selectedItemChange(res[i]);
@@ -97,7 +97,21 @@ function SearchCtrl($http, $scope) {
         })
     }
 
-    $scope.selectTransport = function(transport, choice) {
+    $scope.selectTransport = function(transport, choice, index) {
       transport.choice = choice;
+      if (choice == "fa-underline") {
+
+        var latA = "" + self.list.items[index-1].location.coordinate.latitude;
+        var logA = "" + self.list.items[index-1].location.coordinate.longitude;
+        var latB = "" + self.list.items[index].location.coordinate.latitude;
+        var logB = "" + self.list.items[index].location.coordinate.longitude;
+
+        $http.get(["http://10.16.23.91:8000/api/uberprice", latA, logA, latB, logB].join("/"))
+          .success(function(res){
+            transport.price = res.prices[0].low_estimate;
+          });
+      } else {
+        transport.price = null;
+      }
     }
 }

@@ -42,6 +42,7 @@
 	          <md-button aria-label="menu" class="md-fab md-warn">
 	            <i class="fa {{ctrl.list.transports[index-1].choice}} fa-x"></i>
 	          </md-button>
+	          <span ng-if="ctrl.list.transports[index-1].price">{{ctrl.list.transports[index-1].price | currency:"$"}}</span>
 	        </md-fab-trigger>
 	        <md-fab-actions>
 	          <md-button class="md-fab md-raised md-mini" ng-click="selectTransport(ctrl.list.transports[index-1], 'fa-car')">
@@ -53,7 +54,7 @@
 	          <md-button class="md-fab md-raised md-mini" ng-click="selectTransport(ctrl.list.transports[index-1], 'fa-male')">
 	            <i class="fa fa-male fa-x"></i>
 	          </md-button>
-	          <md-button class="md-fab md-raised md-mini" ng-click="selectTransport(ctrl.list.transports[index-1], 'fa-underline')">
+	          <md-button class="md-fab md-raised md-mini" ng-click="selectTransport(ctrl.list.transports[index-1], 'fa-underline', index)">
 	            <i class="fa fa-underline fa-x"></i>
 	          </md-button>
 	        </md-fab-actions>
@@ -62,10 +63,23 @@
 	   	<md-card>
 	      <md-card-content layout="row" layout-wrap>
 	      	<div flex="85">
-	      		<div layout="row" layout-align="start center">
+			  <md-list-item class="md-2-line">
+		        <img ng-src="{{item.image_url}}" class="md-avatar"/>
+		        <div class="md-list-item-text">
+		          <div layout="row">
+		          	  <div>
+			          	<h3>{{ item.name }}</h3>
+			          	<p>{{ item.location.address[0] }}</p>		          	  
+		          	   </div>
+			          <md-button class="md-accent" ng-href="{{item.url}}" target="_blank"><i class="fa fa-yelp fa-x"></i>Yelp</md-button>
+			          <md-button class="md-fab md-mini" >4.5</md-button>  	
+		          </div>
+		        </div>
+		      </md-list-item>
+<!-- 	      		<div layout="row" layout-align="start center">
 	      		<img class="md-avatar" src="{{item.image_url}}" style="margin-right: 10px">
 	      		<span class="md-body-1">{{item.name}}</span>	      			
-	      		</div>
+	      		</div> -->
 	     	</div>
 	      	<div flex="15" layout="row" layout-align="center center">
 	      			<md-button class="md-raised md-primary">$14</md-button>
