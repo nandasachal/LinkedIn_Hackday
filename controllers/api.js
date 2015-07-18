@@ -54,6 +54,8 @@ module.exports = function (router) {
 
     router.get('/getJourney/:lat/:lng', function (req, res) {
         Yelp.getJourney(req.params.lat, req.params.lng, function (err, data) {
+            res.header("Access-Control-Allow-Origin", "*");
+            res.header("Access-Control-Allow-Headers", "X-Requested-With");
             if (err) {
                 res.json(err);
             } else {
