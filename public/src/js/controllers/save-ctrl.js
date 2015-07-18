@@ -16,6 +16,8 @@ function SaveCtrl($http, $location) {
 		});
 
 	self.view = function(id) {
-
+		// $location.path('/save')
+		$location.path("/detail/"+id);
+		// $location.search("id", id);
 	}
 }

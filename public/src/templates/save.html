@@ -11,7 +11,7 @@
 </style>
 
 <div ng-controller="SaveCtrl as ctrl">
-	<md-card ng-repeat="journey in ctrl.data">
+	<md-card ng-repeat="(key,journey) in ctrl.data">
       <md-card-content layout="row" layout-wrap>
       	<div flex="85" layout="row">
       		<span ng-repeat="(index, item) in journey.items" layout="row">
@@ -22,7 +22,7 @@
       		</span>
      	</div>
       	<div flex="15" layout="row" layout-align="center center">
-      			<md-button class="md-raised md-primary" ng-click="ctrl.view(index)"><i class="fa fa-search-plus"></i>Detail</md-button>
+      			<md-button class="md-raised md-primary" ng-click="ctrl.view(key)"><i class="fa fa-search-plus"></i>Detail</md-button>
      	</div>
       </md-card-content>
     </md-card>

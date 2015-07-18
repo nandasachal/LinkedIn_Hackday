@@ -4,9 +4,9 @@
 
 var url = "http://10.16.20.212:8000";
 angular.module('RDash')
-    .controller('SearchCtrl', ['$http', '$scope', SearchCtrl]);
+    .controller('SearchCtrl', ['$http', '$scope', '$stateParams',SearchCtrl]);
 
-function SearchCtrl($http, $scope) {
+function SearchCtrl($http, $scope, $stateParams) {
     var self = this;
     self.isDisabled = false;
     self.repos = loadAll();
@@ -16,6 +16,14 @@ function SearchCtrl($http, $scope) {
     self.list = {
         items: [],
         transports: []
+    }
+
+    if ($stateParams.id) {
+        $http.get("https://iwana.firebaseio.com/journey/" + $stateParams.id + ".json")
+        .success(function(res){
+            self.list = JSON.parse(atob(res));
+            updatePrice(self.list);
+        })
     }
 
     // ******************************

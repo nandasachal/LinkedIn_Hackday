@@ -18,6 +18,10 @@ angular.module('RDash').config(['$stateProvider', '$urlRouterProvider',
             .state('save', {
                 url: '/save',
                 templateUrl: 'templates/save.html'
+            })
+            .state('detail', {
+                url: '/detail/:id',
+                templateUrl: 'templates/home.html'
             });
     }
 ]);
