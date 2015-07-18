@@ -14,16 +14,47 @@
   width: 18px; }
 
 #body{
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Imprima', sans-serif;
 }
 
 #heading{
-    font-family: 'Roboto', sans-serif;
-    font-size: 32px;
+   font-family: 'Imprima', sans-serif;
+    font-size: 38px;
+    padding-left: 10px;
+    padding-bottom: 3px;
+    padding-right: 5px;
+    color:#FFFFFF;
 }
-
+#heading2{
+    font-family: 'Imprima', sans-serif;
+    font-size: 38px;
+    padding-left: 2px;
+    padding-bottom: 3px;
+    color:#FFFFFF;
+}
 #owllogo{
     width: 50px;
-    height: 55px;
-    padding-right: 5px;
+    height: 50px;
+    padding-right: 1px;;
 }
+
+#landingpage_body
+{
+    background: url('/public/src/img/mb-bg-fb-09.png');
+    color: white;
+}
+
+#owllogo_landing{
+    align-content:  center;
+    float: none;
+    padding: 0;
+    vertical-align:middle;
+}
+  
+ .landing_header{   
+     color: lightgray;
+     font-size: 8em;
+     font-weight: 400;
+     margin-left: 340px;
+     
+ }
