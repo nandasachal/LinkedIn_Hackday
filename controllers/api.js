@@ -29,7 +29,7 @@ module.exports = function (router) {
     });
 
     router.get('/nearby/:lat/:lng', function (req, res) {
-        Yelp.getRestaurants(req.params.lat, req.params.lng, function (err, data) {
+        Yelp.getRestaurants(req.params.lat, req.params.lng, 'food', function (err, data) {
             res.header("Access-Control-Allow-Origin", "*");
             res.header("Access-Control-Allow-Headers", "X-Requested-With");
             if (err) {
@@ -48,6 +48,16 @@ module.exports = function (router) {
                 res.send(err);
             } else {
                 res.send(data);
+            }
+        });
+    });
+
+    router.get('/getJourney/:lat/:lng', function (req, res) {
+        Yelp.getJourney(req.params.lat, req.params.lng, function (err, data) {
+            if (err) {
+                res.json(err);
+            } else {
+                res.json(data);
             }
         });
     });

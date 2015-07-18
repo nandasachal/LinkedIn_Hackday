@@ -14,7 +14,8 @@
     "kraken-js": "^1.0.1",
     "localizr": "^0.1.6",
     "request": "*",
-    "yelp": "*"
+    "yelp": "*",
+    "underscore": "*"
   },
   "devDependencies": {
     "grunt": "^0.4.5",
