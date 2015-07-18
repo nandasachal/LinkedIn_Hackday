@@ -132,6 +132,9 @@ function SearchCtrl($http, $scope) {
     }
 
     $scope.saveData = function() {
+      var ref = new Firebase("https://iwana.firebaseio.com/journey");
+      ref.push(btoa(JSON.stringify(self.list)));
+
       $http.post([url, "api/saveData"].join("/"), self.list)
       .success(function(res){
         console.log(res);
