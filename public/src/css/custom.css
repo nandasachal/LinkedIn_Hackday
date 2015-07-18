@@ -12,3 +12,18 @@
 .autocompletedemoCustomTemplate .autocomplete-custom-template .item-title md-icon {
   height: 18px;
   width: 18px; }
+
+#body{
+    font-family: 'Roboto', sans-serif;
+}
+
+#heading{
+    font-family: 'Roboto', sans-serif;
+    font-size: 32px;
+}
+
+#owllogo{
+    width: 50px;
+    height: 55px;
+    padding-right: 5px;
+}

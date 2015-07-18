@@ -8,7 +8,7 @@
     <!-- build:css lib/css/main.min.css -->
     <link rel="stylesheet" type="text/css" href="components/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="components/angular-material/angular-material.css">
-    <link rel="stylesheet" type="text/css" href="/css/custom.css">
+    <link rel="stylesheet" type="text/css" href="css/custom.css">
 
     <!-- endbuild -->
     <!-- SCRIPTS -->
@@ -19,16 +19,20 @@
     <script type="text/javascript" src="components/angular-animate/angular-animate.js"></script>
     <script type="text/javascript" src="components/angular-aria/angular-aria.js"></script>
     <script type="text/javascript" src="components/angular-material/angular-material.js"></script>
+    
     <!-- endbuild -->
     <!-- Custom Scripts -->
     <script type="text/javascript" src="js/dashboard.min.js"></script>
+    <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+      
   </head>
-  <body ng-controller="MasterCtrl">
+  <body ng-controller="MasterCtrl" id="body">
     <md-toolbar layout="row">
-    <div class="md-toolbar-tools">
+    <div class="md-toolbar-tools" id="title">
       <md-button ng-click="toggleSidenav('left')" hide-gt-sm class="md-icon-button">
       </md-button>
-      <h1>Night Owl</h1>
+        <img src="img/owllogo.png" id="owllogo"/>
+      <h1 id="heading">Night Owl</h1>
     </div>
     <div layout="row" layout-align="end">
       <md-button><i class="fa fa-location-arrow fa-2x"></i></md-button>
