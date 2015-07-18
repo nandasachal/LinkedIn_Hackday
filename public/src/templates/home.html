@@ -29,15 +29,15 @@
       <div class="md-actions" layout="row" layout-align="end center">
         <md-button class="md-raised md-primary" ng-click="recommendJourney()">Recommend Journey</md-button>
       </div>
-
     </md-card>
+    <!-- <h3 class="md-headline" layout="row" layout-align="center center">Your Journey</h3> -->
     <div offset="80" ng-if="ctrl.list.items.length > 0">
     	<p class="md-body-1">Estimate Cost:</p>
-    	<md-button class="md-raised" ng-click="recommendJourney()">$20-40</md-button>
+    	<md-button class="md-raised" ng-click="recommendJourney()">{{sum|currency:"$"}}</md-button>
     	<md-button class="md-raised md-primary" ng-click="recommendJourney()">save</md-button>
     </div>
     <div ng-repeat="(index, item) in ctrl.list.items">
-	    <md-fab-speed-dial md-open="ctrl.list.transports[index-1].isOpen" md-direction="right" class="md-fling" ng-if="index > 0">
+	    <md-fab-speed-dial md-open="ctrl.list.transports[index-1].isOpen" md-direction="right" class="md-fling" offset="50" ng-if="index > 0">
 	        <md-fab-trigger>
 	          <md-button aria-label="menu" class="md-fab md-warn">
 	            <i class="fa {{ctrl.list.transports[index-1].choice}} fa-x"></i>
@@ -72,7 +72,7 @@
 			          	<p>{{ item.location.address[0] }}</p>		          	  
 		          	   </div>
 			          <md-button class="md-accent" ng-href="{{item.url}}" target="_blank"><i class="fa fa-yelp fa-x"></i>Yelp</md-button>
-			          <md-button class="md-fab md-mini" >4.5</md-button>  	
+			          <md-button class="md-fab md-mini" >{{item.rating}}</md-button>  	
 		          </div>
 		        </div>
 		      </md-list-item>
@@ -82,7 +82,7 @@
 	      		</div> -->
 	     	</div>
 	      	<div flex="15" layout="row" layout-align="center center">
-	      			<md-button class="md-raised md-primary">$14</md-button>
+	      			<md-button class="md-raised md-primary">{{item.price|currency:"$"}}</md-button>
 	      			<md-button class="md-fab md-mini" ng-click="removeItem(index)">
 	            		<i class="fa fa-close fa-x"></i>
 	        	    </md-button>     		
