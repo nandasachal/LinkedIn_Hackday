@@ -40,18 +40,6 @@ module.exports = function (router) {
         });
     });
 
-    router.get('/foodcost/:rest_id', function (req, res) {
-        Yelp.getRestaurantPrice(req.params.rest_id, function (err, data) {
-            res.header("Access-Control-Allow-Origin", "*");
-            res.header("Access-Control-Allow-Headers", "X-Requested-With");
-            if (err) {
-                res.send(err);
-            } else {
-                res.send(data);
-            }
-        });
-    });
-
     router.get('/getJourney/:lat/:lng', function (req, res) {
         Yelp.getJourney(req.params.lat, req.params.lng, function (err, data) {
             res.header("Access-Control-Allow-Origin", "*");
