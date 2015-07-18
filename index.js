@@ -24,11 +24,19 @@ options = {
 
 app = module.exports = express();
 app.use(kraken(options));
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "X-Requested-With");
+  next();
+ });
+ 
 app.on('start', function () {
     console.log('Application ready to serve requests.');
     console.log('Environment: %s', app.kraken.get('env:env'));
     dbConnect.configure();
 });
+
+
 
 server = http.createServer(app);
 server.listen(process.env.PORT || 8000);

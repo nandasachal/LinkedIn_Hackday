@@ -58,6 +58,13 @@ module.exports = function (router) {
         });
     });
 
+
+    // router.option('/saveData', function(req, res) {
+    //      res.header("Access-Control-Allow-Origin", "*");
+    //      res.header("Access-Control-Allow-Headers", "X-Requested-With");
+    //      res.json();
+    // });
+
     router.post('/saveData', function (req, res) {
         
         console.log(req.body);

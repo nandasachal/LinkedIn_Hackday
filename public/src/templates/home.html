@@ -34,7 +34,7 @@
     <div offset="80" ng-if="ctrl.list.items.length > 0">
     	<p class="md-body-1">Estimate Cost:</p>
     	<md-button class="md-raised" ng-click="recommendJourney()">{{sum|currency:"$"}}</md-button>
-    	<md-button class="md-raised md-primary" ng-click="recommendJourney()">save</md-button>
+    	<md-button class="md-raised md-primary" ng-click="saveData()">save</md-button>
     </div>
     <div ng-repeat="(index, item) in ctrl.list.items">
 	    <md-fab-speed-dial md-open="ctrl.list.transports[index-1].isOpen" md-direction="right" class="md-fling" offset="50" ng-if="index > 0">

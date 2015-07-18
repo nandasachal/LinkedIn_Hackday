@@ -14,6 +14,10 @@ angular.module('RDash').config(['$stateProvider', '$urlRouterProvider',
             .state('index', {
                 url: '/',
                 templateUrl: 'templates/home.html'
+            })
+            .state('save', {
+                url: '/save',
+                templateUrl: 'templates/save.html'
             });
     }
 ]);

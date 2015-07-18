@@ -2,6 +2,7 @@
  * Search Controller
  */
 
+var url = "http://10.16.20.212:8000";
 angular.module('RDash')
     .controller('SearchCtrl', ['$http', '$scope', SearchCtrl]);
 
@@ -53,7 +54,7 @@ function SearchCtrl($http, $scope) {
         navigator.geolocation.getCurrentPosition(function(geo) {
             var lat = "" + geo.coords.latitude;
             var log = "" + geo.coords.longitude;
-            $http.get(["http://10.16.23.91:8000/api/nearby", lat, log].join("/"))
+            $http.get([url, "api/nearby", lat, log].join("/"))
                 .success(function(res) {
                     var repos = res;
                     self.repos = repos.map(function(repo) {
@@ -82,10 +83,14 @@ function SearchCtrl($http, $scope) {
     }
 
     $scope.recommendJourney = function() {
+        self.list = {
+            items: [],
+            transports: []
+        }
         navigator.geolocation.getCurrentPosition(function(geo) {
             var lat = "" + geo.coords.latitude;
             var log = "" + geo.coords.longitude;
-            $http.get(["http://10.16.23.91:8000/api/getjourney", lat, log].join("/"))
+            $http.get([url, "api/getjourney", lat, log].join("/"))
                 .success(function(res) {
                     for (var i in res) {
                         selectedItemChange(res[i]);
@@ -103,7 +108,7 @@ function SearchCtrl($http, $scope) {
             var latB = "" + self.list.items[index].location.coordinate.latitude;
             var logB = "" + self.list.items[index].location.coordinate.longitude;
 
-            $http.get(["http://10.16.23.91:8000/api/uberprice", latA, logA, latB, logB].join("/"))
+            $http.get([url, "api/uberprice", latA, logA, latB, logB].join("/"))
                 .success(function(res) {
                     transport.price = res.prices[0].low_estimate;
                     updatePrice(self.list);
@@ -124,6 +129,12 @@ function SearchCtrl($http, $scope) {
                 $scope.sum += newValue.transports[i].price;
             }
         }
+    }
 
+    $scope.saveData = function() {
+      $http.post([url, "api/saveData"].join("/"), self.list)
+      .success(function(res){
+        console.log(res);
+      })
     }
 }
