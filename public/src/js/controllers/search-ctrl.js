@@ -50,26 +50,18 @@ function SearchCtrl($http, $scope) {
      * Build `components` list of key/value pairs
      */
     function loadAll() {
-        // navigator.geolocation.getCurrentPosition(function(geo) {
-        //     var lat = "" + geo.coords.latitude;
-        //     var log = "" + geo.coords.longitude;
-        //     $http.get(["http://10.16.23.91:8000/api/nearby", lat, log].join("/"))
-        //         .success(function(res) {
-        //             var repos = res.businesses;
-        //             self.repos = repos.map(function(repo) {
-        //                 repo.value = repo.name.toLowerCase();
-        //                 return repo;
-        //             });
-        //         });
-        // });
-        $http.get("http://10.16.23.91:8000/api/nearby/37.354611/-121.918866")
-            .success(function(res) {
-                var repos = res;
-                self.repos = repos.map(function(repo) {
-                    repo.value = repo.name.toLowerCase();
-                    return repo;
+        navigator.geolocation.getCurrentPosition(function(geo) {
+            var lat = "" + geo.coords.latitude;
+            var log = "" + geo.coords.longitude;
+            $http.get(["http://10.16.23.91:8000/api/nearby", lat, log].join("/"))
+                .success(function(res) {
+                    var repos = res;
+                    self.repos = repos.map(function(repo) {
+                        repo.value = repo.name.toLowerCase();
+                        return repo;
+                    });
                 });
-            });
+        });
     }
 
     /**
@@ -90,13 +82,16 @@ function SearchCtrl($http, $scope) {
     }
 
     $scope.recommendJourney = function() {
-        $http.get("http://10.16.23.91:8000/api/getjourney/37.354611/-121.918866")
-            .success(function(res) {
-                console.log(res);
-                for (var i in res) {
-                    selectedItemChange(res[i]);
-                }
-            })
+        navigator.geolocation.getCurrentPosition(function(geo) {
+            var lat = "" + geo.coords.latitude;
+            var log = "" + geo.coords.longitude;
+            $http.get(["http://10.16.23.91:8000/api/getjourney", lat, log].join("/"))
+                .success(function(res) {
+                    for (var i in res) {
+                        selectedItemChange(res[i]);
+                    }
+                });
+        });
     }
 
     $scope.selectTransport = function(transport, choice, index) {
@@ -118,7 +113,7 @@ function SearchCtrl($http, $scope) {
         }
     }
 
-    function updatePrice(newValue){
+    function updatePrice(newValue) {
         $scope.sum = 0;
         for (var i in newValue.items) {
             $scope.sum += newValue.items[i].price;
@@ -126,7 +121,7 @@ function SearchCtrl($http, $scope) {
 
         for (var i in newValue.transports) {
             if (newValue.transports[i].price) {
-              $scope.sum += newValue.transports[i].price;              
+                $scope.sum += newValue.transports[i].price;
             }
         }
 
