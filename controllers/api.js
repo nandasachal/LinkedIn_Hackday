@@ -4,7 +4,10 @@ var Yelp = require('../lib/getYelpData');
 var IndexModel = require('../models/index');
 
 module.exports = function (router) {
-    router.get('uberprice/:startLat/:startLng/:endLat/:endLng', function (req, res) {
+    router.get('/', function (req, res) {
+        res.send('ok');
+    });
+    router.get('/uberprice/:startLat/:startLng/:endLat/:endLng', function (req, res) {
         var start = {
             lat: req.params.startLat,
             lng: req.params.startLng
@@ -23,7 +26,7 @@ module.exports = function (router) {
         });
     });
 
-    router.get('nearby/:lat/:lng', function (req, res) {
+    router.get('/nearby/:lat/:lng', function (req, res) {
         Yelp.getRestaurants(req.params.lat, req.params.lng, function (err, data) {
             if (err) {
                 res.send(err);
