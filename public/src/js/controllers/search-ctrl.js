@@ -3,9 +3,9 @@
  */
 
 angular.module('RDash')
-    .controller('SearchCtrl', ['$http', SearchCtrl]);
+    .controller('SearchCtrl', ['$http', '$scope', SearchCtrl]);
 
-function SearchCtrl($http) {
+function SearchCtrl($http, $scope) {
     var self = this;
     self.isDisabled = false;
     self.repos = loadAll();
@@ -34,10 +34,11 @@ function SearchCtrl($http) {
 
     function selectedItemChange(item) {
         if (item != null) {
-            self.list.items.push(item);
+            self.list.items.push(angular.copy(item));
             if (self.list.items.length > 1) {
               self.list.transports.push({
-                isOpen: false
+                isOpen: false,
+                choice: "fa-male"
               })
             }
             self.searchText = null;
@@ -48,10 +49,19 @@ function SearchCtrl($http) {
      * Build `components` list of key/value pairs
      */
     function loadAll() {
-        navigator.geolocation.getCurrentPosition(function(geo) {
-            var lat = "" + geo.coords.latitude;
-            var log = "" + geo.coords.longitude;
-            $http.get(["http://10.16.20.212:8000/api/nearby", lat, log].join("/"))
+        // navigator.geolocation.getCurrentPosition(function(geo) {
+        //     var lat = "" + geo.coords.latitude;
+        //     var log = "" + geo.coords.longitude;
+        //     $http.get(["http://10.16.20.212:8000/api/nearby", lat, log].join("/"))
+        //         .success(function(res) {
+        //             var repos = res.businesses;
+        //             self.repos = repos.map(function(repo) {
+        //                 repo.value = repo.name.toLowerCase();
+        //                 return repo;
+        //             });
+        //         });
+        // });
+                    $http.get("http://10.16.20.212:8000/api/nearby/37.354611/-121.918866")
                 .success(function(res) {
                     var repos = res.businesses;
                     self.repos = repos.map(function(repo) {
@@ -59,8 +69,8 @@ function SearchCtrl($http) {
                         return repo;
                     });
                 });
-        });
     }
+
     /**
      * Create filter function for a query string
      */
@@ -69,5 +79,25 @@ function SearchCtrl($http) {
         return function filterFn(item) {
             return (item.value.indexOf(lowercaseQuery) === 0);
         };
+    }
+
+    $scope.removeItem = function (index) {
+      self.list.items.splice(index, index);
+      if (index != 0) {
+        self.list.transports.splice(index-1, index-1);
+      }
+    }
+
+    $scope.recommendJourney = function() {
+      $http.get("http://10.16.20.212:8000/api/getjourney/37.354611/-121.918866")
+        .success(function(res){
+          for (var i in res) {
+            selectedItemChange(res[i]);
+          }
+        })
+    }
+
+    $scope.selectTransport = function(transport, choice) {
+      transport.choice = choice;
     }
 }
