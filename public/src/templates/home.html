@@ -16,29 +16,50 @@
           md-menu-class="autocomplete-custom-template">
         <md-item-template>
           <span class="item-title">
-            <md-icon md-svg-icon="img/icons/octicon-repo.svg"></md-icon>
             <span> {{item.name}} </span>
           </span>
-          <span class="item-metadata">
+          <span class="item-metadata" style="float: right">
             <span class="item-metastat">
-              <strong>{{item.watchers}}</strong> watchers
-            </span>
-            <span class="item-metastat">
-              <strong>{{item.forks}}</strong> forks
+              <strong>{{item.distance | number : 0}}</strong> meters
             </span>
           </span>
         </md-item-template>
       </md-autocomplete>
       </md-card-content>
     </md-card>
-    <md-card>
-      <md-card-content layout="row">
-      	<div layout="row">
-      		<div layout="row" layout-align="end">
-      			<md-button class="md-raised md-primary">Primary</md-button>     		
-     		</div>
-      	</div>
-      </md-card-content>
-    </md-card>
+    <div ng-repeat="(index, item) in ctrl.list.items">
+	    <md-fab-speed-dial md-open="ctrl.list.transports[index-1].isOpen" md-direction="right" class="md-fling" ng-if="index > 0">
+	        <md-fab-trigger>
+	          <md-button aria-label="menu" class="md-fab md-warn">
+	            <md-icon md-svg-src="img/icons/menu.svg"></md-icon>
+	          </md-button>
+	        </md-fab-trigger>
+	        <md-fab-actions>
+	          <md-button aria-label="twitter" class="md-fab md-raised md-mini">
+	            <md-icon md-svg-src="img/icons/twitter.svg"></md-icon>
+	          </md-button>
+	          <md-button aria-label="facebook" class="md-fab md-raised md-mini">
+	            <md-icon md-svg-src="img/icons/facebook.svg"></md-icon>
+	          </md-button>
+	          <md-button aria-label="Google hangout" class="md-fab md-raised md-mini">
+	            <md-icon md-svg-src="img/icons/hangout.svg"></md-icon>
+	          </md-button>
+	        </md-fab-actions>
+	      </md-fab-speed-dial>
+	      <!-- Card -->
+	   	<md-card>
+	      <md-card-content layout="row" layout-wrap>
+	      	<div flex="85">
+	      		<p class="md-body-1">{{item.name}}</p>
+	     	</div>
+	      	<div flex="15">
+	      			<md-button class="md-raised md-primary">$14</md-button>
+	      			<md-button class="md-fab md-mini" ng-click="ctrl.removeItem(index)">
+	            		<i class="fa fa-close fa-x"></i>
+	        	    </md-button>     		
+	     	</div>
+	      </md-card-content>
+	    </md-card>
+    </div>
   </md-content>
 </div>
